@@ -1,0 +1,67 @@
+
+    //사용 설정 메뉴들
+    router.route('/notice').get(function(req, res){
+        res.render('use_notice.ejs');
+    });
+
+    router.route('/pw_change').get(function(req, res){
+        res.render('use_pwchange.ejs');
+    });
+
+    router.route('/user_manage').get(function(req, res){
+        res.render('use_usermanage.ejs');
+    });
+
+    router.route('/limit_user').get(function(req, res){
+        res.render('use_limituser.ejs');
+    });
+
+    //네트워크 설정 메뉴들
+    router.route('/port').get(function(req, res){
+        res.render('nw_portfw.ejs');
+    });
+
+    router.route('/port_foward').get(function(req, res){
+        res.render('nw_portfw.ejs');
+    });
+
+    router.route('/inner_network').get(function(req, res){
+        res.render('nw_innernw.ejs');
+    });
+
+    router.route('/change_router_ip').get(function(req, res){
+        res.render('nw_chageip.ejs');
+    });
+
+    //보안 설정 메뉴들 (보류)
+    router.route('/mac_address').get(function(req, res){
+        res.render('sc_mac.ejs');
+    });
+
+    router.route('/syn_flood').get(function(req, res){
+        res.render('sc_synflood.ejs');
+    });
+    
+    //디지털 액자 메뉴들 * 중요
+    router.route('/slide_setting').get(function(req, res){
+        res.render('df_slide.ejs');
+    });
+
+    router.route('/save_energy').get(function(req, res){
+        res.render('df_saveenergy.ejs');
+    });
+    
+    //Printer Sharing 메뉴들(보류)
+    router.route('/driver_setting').get(function(req, res){
+        res.render('pt_driver.ejs');
+    });
+
+    router.route('/printer_setting').get(function(req, res){
+        res.render('pt_printer.ejs');
+    });
+    
+    //NAS
+    router.route('/nas_register').get(function(req, res){
+        res.render('nas_register.ejs');
+    });
+    

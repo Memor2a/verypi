@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<title>Router 로그인 페이지</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
+<link rel="stylesheet" href="./public/css/main_css.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.w3-sidebar a {font-family: "Roboto", "Nanum gothic", sans-serif}
+body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", "Nanum gothic", sans-serif;}
+</style>
+
+    <body class="w3-content" style="max-width:600px">
+        <br><br><br><br>
+        <div class="w3-container">
+            <h3><b>Very PI</b> Router<br></h3>
+            <h1><span class="fa fa-sign-in"></span> <b>Login</b></h1>
+        </div>
+
+        
+        <div class="w3-container" id="login">
+            <form method="post" action="/login" target="_top">
+                <div class="w3-section">
+                    <label>ID</label>
+                    <input class="w3-input w3-border" type="text" name="id" value="test" required>
+                    <label>PASSWORD</label>
+                    <input class="w3-input w3-border" type="text" name="password" value="test" required>
+                </div>
+
+			    <% if (message.length > 0) { %>
+			        <div class="alert alert-danger"><%= message %></div>
+			    <% } %>
+                
+                <button type="submit" class="w3-button w3-block w3-padding-large w3-black w3-margin-bottom">로그인</button>
+            </form>   
+        </div>
+    </body>
+</html>
