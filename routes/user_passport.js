@@ -55,20 +55,12 @@ module.exports = function(router, passport) {
         failureFlash : true 
     }));  
 
-    router.route('/test').get(function(req, res){
-        res.render('test.ejs');
-        if (!req.user) {
-            res.render('use_pwchange.ejs', {login_success:false});
-        }else{
-            res.render('use_pwchange.ejs', {login_success:false});            
-        }
-    });
-
     //사용 설정 메뉴들
     router.route('/pw_change').get(function(req, res){
         if (!req.user) {
             res.render('use_pwchange.ejs', {login_success:false});
         }else{
+            console.log("pw_change (로그인됨)");
             res.render('use_pwchange.ejs', {login_success:true});            
         }
     });
@@ -100,9 +92,9 @@ module.exports = function(router, passport) {
     //네트워크 설정 메뉴들
     router.route('/port').get(function(req, res){
         if (!req.user) {
-            res.render('nw_portfw.ejs', {login_success:false});
+            res.render('nw_port.ejs', {login_success:false});
         }else{
-            res.render('nw_portfw.ejs', {login_success:true});            
+            res.render('nw_port.ejs', {login_success:true});            
         }
     });
 

@@ -1,0 +1,35 @@
+#users : 사용자 정보가 저장되어 있음
+    - id
+    - password
+
+#device : 등록된 기기들의 정보
+    - device_type : 기기명
+    - device_name : 등록된 이름
+    - ip : 기기 ip 주소
+
+#post : 공지사항 게시판
+
+#ip_address : 차단된 address 저장 / 포트포워딩
+    - rule_name
+    - ip_address
+    - inner_port
+    - outer_port
+    
+#mac_address : 
+    - rule_name
+    - mac_address
+
+#config : 간단한 설정들 저장
+    - syn_flood : syn flood 작동 여부
+    - con_device : 사용 인원 제한
+    - frame_folder : 슬라이드 할 폴더
+    - frame_time : 1개 슬라이드당 표시 시간
+    
+#printer
+
+#nas
+
+
+멘토링을 받고 나면 중간 점검표 작성 후 사진을 안에 다 넣고
+교육원에 내는 것이 아닌 담당 멘토에게 주면 된다.
+

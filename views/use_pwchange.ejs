@@ -115,14 +115,14 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", "Nanum gothic", sans
             </header>
 
             <div class="w3-container" id="pw-change">
-                <form action="/action_page.php" target="_blank">
+			    <form action="/pw_change" method="post" >
                     <div class="w3-section">
                         <label>기존 비밀번호를 입력해주세요.</label>
-                        <input class="w3-input w3-border" type="text" name="Name" required>
+                        <input class="w3-input w3-border" type="text" name="oldpw" required>
                     </div>
                     <div class="w3-section">	
                         <label>변경할 비밀번호를 입력해주세요.</label>
-                        <input class="w3-input w3-border" type="text" name="Email" required>
+                        <input class="w3-input w3-border" type="text" name="newpw" required>
                     </div>
                     <button type="submit" class="w3-button w3-block w3-padding-large w3-black w3-margin-bottom">비밀번호 변경하기</button>
                 </form>  

@@ -12,10 +12,10 @@ SchemaObj.createSchema = function(mongoose) {
 	var PostSchema = mongoose.Schema({
 	    title: {type: String, trim: true, 'default':''},		// 글 제목
 	    contents: {type: String, trim:true, 'default':''},						// 글 내용
-	    writer: {type: mongoose.Schema.ObjectId, ref: 'users6'},							// 글쓴 사람
+	    writer: {type: mongoose.Schema.ObjectId, ref: 'users'},							// 글쓴 사람
 	    comments: [{		// 댓글
 	    	contents: {type: String, trim:true, 'default': ''},					// 댓글 내용
-	    	writer: {type: mongoose.Schema.ObjectId, ref: 'users6'},
+	    	writer: {type: mongoose.Schema.ObjectId, ref: 'users'},
 	    	created_at: {type: Date, 'default': Date.now}
 	    }],
 	    tags: {type: [], 'default': ''},
@@ -24,7 +24,7 @@ SchemaObj.createSchema = function(mongoose) {
 	});
 	
 	// 필수 속성에 대한 'required' validation
-	PostSchema.path('title').required(true, '글 제목을 입력하셔야 합니다d.');
+	PostSchema.path('title').required(true, '글 제목을 입력하셔야 합니다.');
 	PostSchema.path('contents').required(true, '글 내용을 입력하셔야 합니다.');
 	
 	// 스키마에 인스턴스 메소드 추가
