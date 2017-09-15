@@ -73,13 +73,13 @@ module.exports = function(router, passport) {
         }
     });
     
-    router.route('/user_manage').get(function(req, res){
-        if (!req.user) {
-            res.render('use_usermanage.ejs', {login_success:false});
-        }else{
-            res.render('use_usermanage.ejs', {login_success:true});
-        }
-    });
+//    router.route('/user_manage').get(function(req, res){
+//        if (!req.user) {
+//            res.render('use_usermanage.ejs', {login_success:false});
+//        }else{
+//            res.render('use_usermanage.ejs', {login_success:true});
+//        }
+//    });
 
     router.route('/limit_user').get(function(req, res){
         if (!req.user) {
@@ -90,21 +90,21 @@ module.exports = function(router, passport) {
     });
 
     //네트워크 설정 메뉴들
-    router.route('/port').get(function(req, res){
-        if (!req.user) {
-            res.render('nw_port.ejs', {login_success:false});
-        }else{
-            res.render('nw_port.ejs', {login_success:true});            
-        }
-    });
+//    router.route('/port').get(function(req, res){
+//        if (!req.user) {
+//            res.render('nw_port.ejs', {login_success:false});
+//        }else{
+//            res.render('nw_port.ejs', {login_success:true});            
+//        }
+//    });
 
-    router.route('/port_foward').get(function(req, res){
-        if (!req.user) {
-            res.render('nw_portfw.ejs', {login_success:false});
-        }else{
-            res.render('nw_portfw.ejs', {login_success:true});            
-        }
-    });
+//    router.route('/port_foward').get(function(req, res){
+//        if (!req.user) {
+//            res.render('nw_portfw.ejs', {login_success:false});
+//        }else{
+//            res.render('nw_portfw.ejs', {login_success:true});            
+//        }
+//    });
 
     router.route('/inner_network').get(function(req, res){
         if (!req.user) {
@@ -122,14 +122,14 @@ module.exports = function(router, passport) {
         }
     });
 
-    //보안 설정 메뉴들 (보류)
-    router.route('/mac_address').get(function(req, res){
-        if (!req.user) {
-            res.render('sc_mac.ejs', {login_success:false});
-        }else{
-            res.render('sc_mac.ejs', {login_success:true});            
-        }
-    });
+    //보안 설정 메뉴들
+//    router.route('/mac_address').get(function(req, res){
+//        if (!req.user) {
+//            res.render('sc_mac.ejs', {login_success:false});
+//        }else{
+//            res.render('sc_mac.ejs', {login_success:true});            
+//        }
+//    });
 
     router.route('/syn_flood').get(function(req, res){
         if (!req.user) {

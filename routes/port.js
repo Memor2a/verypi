@@ -5,17 +5,20 @@
 // html-entities module is required in showpost.ejs
 var Entities = require('html-entities').AllHtmlEntities;
 
-var add_user_device = function(req, res) {
-	console.log('device 모듈 안에 있는 add_user_device 호출됨.');
- 
-    var paramUserName = req.body.username || req.query.name;
-    var paramDeviceType = req.body.devicetype || req.query.device_ip;
-    var paramDeviceIp = req.body.deviceip || req.query.device_type;
-	
-    console.log('요청 파라미터 : ' + paramUserName + ', ' + paramDeviceType);
+//추가 및 삭제
+var add_ban_port = function(req, res) {
+	console.log('ban port 모듈 안에 있는 add_ban_port 호출됨.');
+
+    var paramRuleName = req.body.rulename || req.query.rule_name;
+    var paramBanPort = req.body.port || req.query.port;
+	var paramAdd = req.body.add;
+	var paramDelete = req.body.delete;
+    
+    console.log('요청 파라미터 : ' + paramRuleName + ', ' + paramBanPort);
     
 	var database = req.app.get('database');
-	console.log('유저 등록 등록 진행중');
+
+    console.log('ban port 등록 진행중');
 	if (database.db) {
 
 	// 1. 아이디를 이용해 사용자 검색
@@ -44,33 +47,61 @@ var add_user_device = function(req, res) {
 			
 			// save()로 저장
 			// PostModel 인스턴스 생성
-			var add_device = new database.DeviceModel({
-                name: paramUserName,
-				device_type: paramDeviceType,
-				device_ip: paramDeviceIp
+			var ports = new database.PortBanModel({
+                rule_name: paramRuleName,
+				port: paramBanPort
 			});
 
-            console.log(add_device);
-        
-			add_device.savePost(function(err, results) {
-				if (err) {
+//            console.log(ports);
+            
+            //등록하기 버튼을 눌렀을 시
+            if(paramAdd == 1){
+                console.log("results]"+results);
+                ports.savePost(function(err, results) {
                     if (err) {
-                        console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+                        if (err) {
+                            console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
 
-                        res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-                        res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
-                        res.write('<p>' + err.stack + '</p>');
-                        res.end();
+                            res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+                            res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
+                            res.write('<p>' + err.stack + '</p>');
+                            res.end();
 
-                        return;
+                            return;
+                        }
                     }
-                }
-				
-			    console.log("글 데이터 추가함.");
-			    console.log('글 작성', '포스팅 글을 생성했습니다. : ');
-			    
-			    return res.redirect('/process/list_reg_device'); 
-			});
+
+                    console.log("PORT BAN DATA ADD COMPLETE.");
+
+                    return res.redirect('/process/list_ban_port'); 
+                });
+            }
+            
+            //삭제하기 버튼을 눌렀을 시
+                var num = req.body.check;
+                console.log(num);
+            
+            if(paramDelete == 1){
+
+                ports.deletePost(num, function(err, results) {
+                    if (err) {
+                        if (err) {
+                            console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+
+                            res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+                            res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
+                            res.write('<p>' + err.stack + '</p>');
+                            res.end();
+
+                            return;
+                        }
+                    }
+
+                    console.log("PORT BAN DATA DELETE COMPLETE");
+
+                    return res.redirect('/process/list_ban_port'); 
+                });
+            }
 			
 		});
 		
@@ -82,14 +113,14 @@ var add_user_device = function(req, res) {
 	
 };
 
-var list_reg_device = function(req, res) {
-	console.log('device 모듈 안에 있는 list_device 호출됨.');
+var list_ban_port = function(req, res) {
+	console.log('port 모듈 안에 있는 list_port_ban 호출됨.');
   
     var paramPage = "";
     var paramPerPage = "";
 	    
 	var database = req.app.get('database');
-	console.log('device 로딩 진행중');
+	console.log('port 로딩 진행중');
     // 데이터베이스 객체가 초기화된 경우
 	if (database.db) {
 		// 1. 글 리스트
@@ -98,8 +129,7 @@ var list_reg_device = function(req, res) {
 			perPage: paramPerPage
 		}
         
-		database.DeviceModel.list(options, function(err, results) {
-            console.log("test");
+		database.PortBanModel.list(options, function(err, results) {
 			if (err) {
                 console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
                 res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
@@ -114,7 +144,7 @@ var list_reg_device = function(req, res) {
 //				console.dir(results);
  
 				// 전체 문서 객체 수 확인
-				database.DeviceModel.count().exec(function(err, count) {
+				database.PortBanModel.count().exec(function(err, count) {
 
 					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
 					
@@ -124,7 +154,9 @@ var list_reg_device = function(req, res) {
                         result: results
 					};
                     
-					req.app.render('use_usermanage', context, function(err, html) {
+//                    console.log(results);
+                    
+					req.app.render('nw_port', context, function(err, html) {
                         if (err) {
                             console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
 
@@ -152,13 +184,7 @@ var list_reg_device = function(req, res) {
 		res.write('<h2>데이터베이스 연결 실패</h2>');
 		res.end();
 	}
-	
 };
 
-var delete_reg_device = function(req, res){
-    console.log("test");
-};
-
-module.exports.add_user_device = add_user_device;
-module.exports.list_reg_device = list_reg_device;
-module.exports.delete_reg_device = delete_reg_device;
+module.exports.add_ban_port = add_ban_port;
+module.exports.list_ban_port = list_ban_port;

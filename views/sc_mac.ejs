@@ -22,7 +22,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", "Nanum gothic", sans
 			<h3 class="w3-narrower w3-center"><b>VeryPI Router</b></h3>
             <br>
             <div class="w3-center w3-border-top w3-border-bottom">
-                <% if (login_success) { %>
+                <% if (1) { %>
                     <p class="w3-text-grey"><span class="fa fa-user"></span> 관리자님 환영합니다</p>
                     <a href="/logout" class="w3-bar-item w3-center w3-button w3-text-black"> 로그아웃</a>
                 <% } else { %>
@@ -35,7 +35,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", "Nanum gothic", sans
 		<div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
 			<a href="/" class="w3-bar-item w3-button w3-text-black">시스템 정보</a>
 
-            <% if (login_success) { %>
+            <% if (1) { %>
                 <a onclick="myAccFunc(1)" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
                     사용 설정<i class="fa fa-caret-down"></i>
                 </a>
@@ -106,29 +106,35 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", "Nanum gothic", sans
 		<!-- Push down content on small screens -->
 		<div class="w3-hide-large" style="margin-top:83px"></div>
 
-        <% if (login_success) { %>
+        <% if (1) { %>
             <!-- 본문 내용 삽입 -->
         
             <!-- MAC ADDRESS 관리 -->
             <div class="w3-container w3-text-grey" id="summary_device">
                 <p>차단된 MAC ADDRESS</p>
-                <div class="w3-bar w3-text-black w3-border-top w3-border-bottom">
-                    <table class="w3-table">
-                        <tr class="w3-border-bottom">
-                            <td>규칙명</td><td>MAC ADDRESS</td>
-                        </tr>
-                        <tr>
-                            <td>규칙A</td><td>12-32-12-23-21-23</td>
-                        </tr>
-                        <tr>
-                            <td>규칙B</td><td>13-12-32-32-14-23</td>
-                        </tr>
-                        <tr>
-                            <td><input class="w3-input w3-border" type="text" name="Email" required></td>
-                            <td><input class="w3-input w3-border" type="text" name="Email" required></td>
-                        </tr>
-                    </table>
-                </div>
+			    <form action="/process/add_ban_mac" method="post">                
+                    <div class="w3-bar w3-text-black w3-border-top w3-border-bottom">
+                        <table class="w3-table">
+                            <tr class="w3-border-bottom">
+                                <td>규칙명</td><td>MAC ADDRESS</td>
+                            </tr>
+                                <% for (var i = 0; i < result.length; i++) { 
+                                    var rulename = result[i]._doc.rule_name;
+                                    var bannedmac = result[i]._doc.mac_address;%>
+
+                                    <tr>
+                                        <td><%=rulename%></td>
+                                        <td><%=bannedmac%></td>
+                                    </tr>
+                                <% } %>
+                            <tr>
+                                <td><input class="w3-input w3-border" type="text" name="rulename" required></td>
+                                <td><input class="w3-input w3-border" type="text" name="mac" required></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <button type="submit" class="w3-button w3-block w3-padding-large w3-black w3-margin-bottom">MAC ADDRESS 차단하기</button>
+                </form>
             </div>        
 
         <% } else { %>

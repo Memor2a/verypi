@@ -9,7 +9,6 @@
 var local_login = require('./passport/local_login');
 var local_signup = require('./passport/local_signup');
 
-
 module.exports = function (app, passport) {
 	console.log('config/passport 호출됨.');
 

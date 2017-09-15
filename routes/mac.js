@@ -1,21 +1,21 @@
 /*
- * 디바이스 정보 저장 및 조회를 위한 라우팅 함수 정의
+ * MAC ADDRESS 정보 저장 및 조회를 위한 라우팅 함수 정의
  */
 
 // html-entities module is required in showpost.ejs
 var Entities = require('html-entities').AllHtmlEntities;
 
-var add_user_device = function(req, res) {
-	console.log('device 모듈 안에 있는 add_user_device 호출됨.');
- 
-    var paramUserName = req.body.username || req.query.name;
-    var paramDeviceType = req.body.devicetype || req.query.device_ip;
-    var paramDeviceIp = req.body.deviceip || req.query.device_type;
+var add_ban_mac = function(req, res) {
+	console.log('mac port 모듈 안에 있는 add_ban_mac 호출됨.');
+
+    var paramRuleName = req.body.rulename || req.query.rule_name;
+    var paramMac = req.body.mac || req.query.mac_address;
 	
-    console.log('요청 파라미터 : ' + paramUserName + ', ' + paramDeviceType);
+    console.log('요청 파라미터 : ' + paramRuleName + ', ' + paramMac);
     
 	var database = req.app.get('database');
-	console.log('유저 등록 등록 진행중');
+
+    console.log('ban port 등록 진행중');
 	if (database.db) {
 
 	// 1. 아이디를 이용해 사용자 검색
@@ -44,15 +44,14 @@ var add_user_device = function(req, res) {
 			
 			// save()로 저장
 			// PostModel 인스턴스 생성
-			var add_device = new database.DeviceModel({
-                name: paramUserName,
-				device_type: paramDeviceType,
-				device_ip: paramDeviceIp
+			var add_ban_mac = new database.MacModel({
+                rule_name: paramRuleName,
+                mac_address: paramMac
 			});
 
-            console.log(add_device);
+            console.log(add_ban_mac);
         
-			add_device.savePost(function(err, results) {
+			add_ban_mac.savePost(function(err, results) {
 				if (err) {
                     if (err) {
                         console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
@@ -69,7 +68,7 @@ var add_user_device = function(req, res) {
 			    console.log("글 데이터 추가함.");
 			    console.log('글 작성', '포스팅 글을 생성했습니다. : ');
 			    
-			    return res.redirect('/process/list_reg_device'); 
+			    return res.redirect('/process/list_ban_mac'); 
 			});
 			
 		});
@@ -82,26 +81,28 @@ var add_user_device = function(req, res) {
 	
 };
 
-var list_reg_device = function(req, res) {
-	console.log('device 모듈 안에 있는 list_device 호출됨.');
+var list_ban_mac = function(req, res) {
+	console.log('mac 모듈 안에 있는 list_ban_mac 호출됨.');
   
     var paramPage = "";
     var paramPerPage = "";
 	    
 	var database = req.app.get('database');
-	console.log('device 로딩 진행중');
+	console.log('BANNED MAC ADDRESS 로딩 진행중');
     // 데이터베이스 객체가 초기화된 경우
 	if (database.db) {
+	console.log('BANNED MAC ADDRESS 로딩 진행중1');
 		// 1. 글 리스트
 		var options = {
 			page: paramPage,
 			perPage: paramPerPage
 		}
+	console.log('BANNED MAC ADDRESS 로딩 진행중2');
         
-		database.DeviceModel.list(options, function(err, results) {
-            console.log("test");
+		database.MacModel.list(options, function(err, results) {
+	console.log('BANNED MAC ADDRESS 로딩 진행중3');
 			if (err) {
-                console.error('게시판 글 목록 조회 중 에러 발생 : ' + err.stack);
+                console.error('BANNED MAC ADDRESS 중 에러 발생 : ' + err.stack);
                 res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
 				res.write('<h2>게시판 글 목록 조회 중 에러 발생</h2>');
                 res.write('<p>' + err.stack + '</p>');
@@ -114,7 +115,7 @@ var list_reg_device = function(req, res) {
 //				console.dir(results);
  
 				// 전체 문서 객체 수 확인
-				database.DeviceModel.count().exec(function(err, count) {
+				database.MacModel.count().exec(function(err, count) {
 
 					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
 					
@@ -124,7 +125,9 @@ var list_reg_device = function(req, res) {
                         result: results
 					};
                     
-					req.app.render('use_usermanage', context, function(err, html) {
+                    console.log(results);
+                    
+					req.app.render('sc_mac', context, function(err, html) {
                         if (err) {
                             console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
 
@@ -155,10 +158,10 @@ var list_reg_device = function(req, res) {
 	
 };
 
-var delete_reg_device = function(req, res){
+var delete_ban_mac = function(req, res){
     console.log("test");
 };
 
-module.exports.add_user_device = add_user_device;
-module.exports.list_reg_device = list_reg_device;
-module.exports.delete_reg_device = delete_reg_device;
+module.exports.add_ban_mac = add_ban_mac;
+module.exports.list_ban_mac = list_ban_mac;
+module.exports.delete_ban_mac = delete_ban_mac;

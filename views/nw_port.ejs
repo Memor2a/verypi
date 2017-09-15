@@ -22,7 +22,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", "Nanum gothic", sans
 			<h3 class="w3-narrower w3-center"><b>VeryPI Router</b></h3>
             <br>
             <div class="w3-center w3-border-top w3-border-bottom">
-                <% if (login_success) { %>
+                <% if (1) { %>
                     <p class="w3-text-grey"><span class="fa fa-user"></span> 관리자님 환영합니다</p>
                     <a href="/logout" class="w3-bar-item w3-center w3-button w3-text-black"> 로그아웃</a>
                 <% } else { %>
@@ -35,7 +35,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", "Nanum gothic", sans
 		<div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
 			<a href="/" class="w3-bar-item w3-button w3-text-black">시스템 정보</a>
 
-            <% if (login_success) { %>
+            <% if (1) { %>
                 <a onclick="myAccFunc(1)" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
                     사용 설정<i class="fa fa-caret-down"></i>
                 </a>
@@ -106,7 +106,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", "Nanum gothic", sans
 		<!-- Push down content on small screens -->
 		<div class="w3-hide-large" style="margin-top:83px"></div>
 
-        <% if (login_success) { %>
+        <% if (1) { %>
             <!-- 본문 내용 삽입 -->
         
             <!-- 포트 설정 -->
@@ -117,24 +117,40 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", "Nanum gothic", sans
             <div class="w3-container w3-text-grey" id="summary_device">
                 <p>차단된 포트</p>
                 <div class="w3-bar w3-text-black w3-border-top w3-border-bottom">
-                    <table class="w3-table">
-                        <tr class="w3-border-bottom">
-                            <td>규칙명</td><td>포트</td>
-                        </tr>
-                        <tr>
-                            <td>규칙A</td><td>1234</td>
-                        </tr>
-                        <tr>
-                            <form method="add_ip" action="/port" target="_top">
-                                <td><input class="w3-input w3-border" type="text" name="Email" required></td>
-                                <td><input class="w3-input w3-border" type="text" name="Email" required></td>
-                                <br>
-                                <button type="submit" class="w3-button w3-block w3-padding-large w3-black w3-margin-bottom">포트 등록하기</button>
-                            </form>
-                        </tr>
-                    </table>
+                    <form method="post" action="/process/add_ban_port" target="_top">
+                        <table class="w3-table">
+                            <tr class="w3-border-bottom">
+                                <td>규칙명</td>
+                                <td>포트</td>
+                                <td width=50px>선택</td>
+                            </tr>
+                            <% for (var i = 0; i < result.length; i++) { 
+                                var rulename = result[i]._doc.rule_name;
+                                var port = result[i]._doc.port;
+                                var index = result.length - i;%>
+
+                                <tr>
+                                    <td><%=rulename%></td>
+                                    <td><%=port%></td>
+                                    <td><input class="w3-center" type="checkbox" name="check" value="<%=index%>"></td>
+                                </tr>
+                            <% } %>
+                            <tr class="w3-border-bottom">
+                                <td><input class="w3-input w3-border" type="text" name="rulename"></td>
+                                <td><input class="w3-input w3-border" type="text" name="port"></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <div class="w3-half w3-container">
+                            <button type="submit" name="add" value="1" class="w3-button w3-block w3-padding-large w3-black w3-margin-top">포트 등록하기</button>
+                        </div>
+                        <div class="w3-half w3-container">
+                            <button type="submit" name="delete" value="1" class="w3-button w3-block w3-padding-large w3-black w3-margin-top">선택된 규칙 삭제하기</button>
+                        </div>
+                    </form>
                 </div>
             </div>        
+            <br>
 
         <% } else { %>
             <div class="w3-container w3-center w3-padding-32">

@@ -121,27 +121,36 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", "Nanum gothic", sans
                         <table class="w3-table">
                             <tr class="w3-border-bottom">
                                 <td>이름</td><td>기기명</td><td>IP</td>
+                                <td width=50px>선택</td>
                             </tr>
                                 <% for (var i = 0; i < result.length; i++) { 
                                     var name = result[i]._doc.name;
                                     var type = result[i]._doc.device_type;
-                                    var ip = result[i]._doc.device_ip;%>
+                                    var ip = result[i]._doc.device_ip;
+                                    var index = result.length - i;%>
 
                                     <tr>
                                         <td><%=name%></td>
                                         <td><%=type%></td>
                                         <td><%=ip%></td>
+                                        <td><input class="w3-center" type="checkbox" name="check" value="<%=index%>"></td>                                           
                                     </tr>
                                 <% } %>
                             <tr>
                                 <td><input class="w3-input w3-border" type="text" name="username" required></td>
                                 <td><input class="w3-input w3-border" type="text" name="devicetype" required></td>
                                 <td><input class="w3-input w3-border" type="text" name="deviceip" required></td>
+                                <td></td>
                             </tr>
                         </table>
                     </div>
                     <br>
-                    <button type="submit" class="w3-button w3-block w3-padding-large w3-black w3-margin-bottom">구성원 추가하기</button>
+                    <div class="w3-half w3-container">
+                        <button type="submit" name="add" value="1" class="w3-button w3-block w3-padding-large w3-black w3-margin-top">구성원 등록하기</button>
+                    </div>
+                    <div class="w3-half w3-container">
+                        <button type="submit" name="delete" value="1" class="w3-button w3-block w3-padding-large w3-black w3-margin-top">구성원 삭제하기</button>
+                    </div> 
                 </form>    
             </div>
         
@@ -151,8 +160,6 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", "Nanum gothic", sans
                 <a href="/login" class="w3-bar-item w3-center w3-button w3-text-black"> 로그인 하기</a>
             </div>
         <% } %>
-
-		
 
 		<div class="w3-black w3-center w3-padding-24"> VeryPI Router Setting PAGE</div>
 	</div>

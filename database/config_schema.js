@@ -13,11 +13,27 @@ SchemaObj.createSchema = function(mongoose) {
 	    syn_flood: {type: Boolean, trim: true, 'default':''},             //보안설정 - SYN Flood 사용 설정
 	    slide_sec: {type: String, trim: true, 'default':''},             //디지털 액자 - 슬라이드 설정
 	    slide_save: {type: String, trim: true, 'default':''},            //디지털 액자 - 절전 설정
+	    inner_ip_start: {type: String, trim: true, 'default':''},            //네트워크 설정 - 내부 네트워크 관리
+	    inner_ip_end: {type: String, trim: true, 'default':''},            //네트워크 설정 - 내부 네트워크 설정
+        
 	});
 	
 	// 필수 속성에 대한 'required' validation
 	//DeviceSchema.path('device_name').required(true, '디바이스명 을 입력하셔야 합니다.');
 
+    ConfigSchema.methods = {
+        //옵션 변경 후 저장
+        savePost: function(callback) {
+			var self = this;
+			
+			this.validate(function(err) {
+				if (err) return callback(err);
+				
+				self.save(callback);
+			});
+		}    
+    };
+    
     console.log('ConfigSchema 정의함.');
 
 	return ConfigSchema;
