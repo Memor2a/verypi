@@ -1,7 +1,7 @@
 /**
  * 패스포트 라우팅 함수 정의
  */
-  
+
 module.exports = function(router, passport) {
     console.log('user_passport 호출됨.');
 
@@ -12,14 +12,25 @@ module.exports = function(router, passport) {
         console.log('req.user의 정보');
         console.dir(req.user);
 
-        // 인증 안된 경우
-        if (!req.user) {
-            console.log('사용자 인증 안된 상태임.');
-            res.render('index.ejs', {login_success:false});
-        } else {
-            console.log('사용자 인증된 상태임.');
-            res.render('index.ejs', {login_success:true});
-        }
+        // 인덱스 로딩 전 접속되어 있는 디바이스 정보 가져오기
+        var exec = require('child_process').exec,
+            child;
+                
+        child = exec("echo", function (error, stdout, stderr) {
+//            console.log('stdout: ' + stdout);
+            console.log('stderr: ' + stderr); 
+            if (error !== null){
+                console.log('exec error: ' + error);
+            }         
+            // 인증 여부
+            if (!req.user) {
+                console.log('사용자 인증 안된 상태임.');
+                res.render('index.ejs', {login_success:false, result:stdout});
+            } else {
+                console.log('사용자 인증된 상태임.');
+                res.render('index.ejs', {login_success:true,result:stdout});
+            }
+        });
     });
     
     // 로그인 화면
@@ -180,6 +191,33 @@ module.exports = function(router, passport) {
         }else{
             res.render('nas_register.ejs', {login_success:true});            
         }
+    });
+    
+    /////////////////LCD에 표시될 웹페이지 부분
+    
+    //메인
+    router.route('/df_main').get(function(req, res){
+        res.render('lcd_main.ejs');
+    });
+    
+    router.route('/df_router_info').get(function(req, res){
+        res.render('lcd_router_info.ejs');
+    });
+
+    router.route('/df_photo_slide').get(function(req, res){
+        res.render('lcd_photo_slide.ejs');
+    });
+
+    router.route('/df_photo_full').get(function(req, res){
+        res.render('lcd_photo_full.ejs');
+    });
+
+    router.route('/df_tag').get(function(req, res){
+        res.render('lcd_tag.ejs');
+    });
+
+    router.route('/df_day').get(function(req, res){
+        res.render('lcd_day.ejs');
     });
     
 };

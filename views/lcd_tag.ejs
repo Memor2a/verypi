@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<title>Family HUB Digital Frame</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="/public/css/main_css.css">
+<link rel="stylesheet" href="/public/css/montserrat.css">
+<link rel="stylesheet" href="/public/css/font-awesome.min.css">
+    <style>
+/*        body {
+            position: relative;
+            font-family: "Helvetica Neue", sans-serif;
+            width: 70%;
+            margin: auto;
+            margin-bottom: 1em;
+            margin-top: 20px;
+        }*/
+        
+        #presets a {
+            border-left: solid #666 1px;
+            padding: 0 10px;
+        }
+        
+        #presets a.first {
+            border-left: none;
+        }
+        
+        #keyword {
+            width: 300px;
+        }
+        
+        #fetcher {
+            width: 500px;
+        }
+        
+        #keyword,
+        #go {
+            font-size: 1.5em;
+        }
+        
+        #text {
+            width: 100%;
+            height: 100px;
+        }
+        
+        p.copy {
+            font-size: small;
+        }
+        
+        #form {
+            font-size: small;
+            position: relative;
+        }
+        
+        hr {
+            border: none;
+            border-bottom: solid #ccc 1px;
+        }
+        
+        a.active {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            cursor: text;
+        }
+        
+        #angles line,
+        #angles path,
+        #angles circle {
+            stroke: #666;
+        }
+        
+        #angles text {
+            fill: #333
+        }
+        
+        #angles path.drag {
+            fill: #666;
+            cursor: move;
+        }
+        
+        #angles {
+            text-align: center;
+            margin: 0 auto;
+            width: 350px;
+        }
+        
+        #angles input,
+        #max {
+            width: 42px;
+        }
+        
+body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+.w3-row-padding img {margin-bottom: 12px}
+/* Set the width of the sidebar to 120px */
+.w3-sidebar {width: 150px;background: #111;}
+/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+#main {margin-left: 150px}
+/* Remove margins from "page content" on small screens */
+/* @media only screen and (max-width: 600px) {#main {margin-left: 0}} */
+</style>
+<body class="w3-black">
+
+<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<nav class="w3-dark w3-sidebar w3-bar-block w3-small w3-center">
+  <!--<img src="/w3images/avatar_smoke.jpg" style="width:100%">-->
+    <a href="/df_main" class="w3-bar-item w3-button w3-padding-large w3-black">
+        <p>MAIN Page</p>
+    </a>
+    <a href="/df_router_info" class="w3-dark-grey w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <p>SYSTEM INFO</p>
+    </a>
+    <a href="/df_photo_slide" class="w3-dark-grey w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <p>PHOTO SLIDE</p>
+    </a>
+    <a href="/df_tag" class="w3-dark-grey w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <p>TAG VIEW</p>
+    </a>
+    <a href="/df_day" class="w3-dark-grey w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <p>FIND BY DATE</p>
+    </a>
+</nav>
+    
+<!-- Page Content -->
+<div class="w3-padding-large" id="main">
+  <!-- Header/Home -->
+  <p>Tag View</p>
+    
+    <div id="vis" style="width:800px;height:500px;background:#333"></div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <form id="form">
+        <p><label for="text">아래 텍스트 상자에 원하는 글을 붙여 넣으세요!</label></p>
+        <p><textarea id="text"> How the Word Cloud Generator Works
+
+The layout algorithm for positioning words without overlap is available on GitHub under an open source license as d3-cloud. Note that this is the only the layout algorithm and any code for converting text into words and rendering the final output requires additional development.
+
+As word placement can be quite slow for more than a few hundred words, the layout algorithm can be run asynchronously, with a configurable time step size. This makes it possible to animate words as they are placed without stuttering. It is recommended to always use a time step even without animations as it prevents the browser’s event loop from blocking while placing the words.
+
+The layout algorithm itself is incredibly simple. For each word, starting with the most “important”:
+
+Attempt to place the word at some starting point: usually near the middle, or somewhere on a central horizontal line.
+If the word intersects with any previously placed words, move it one step along an increasing spiral. Repeat until no intersections are found.
+The hard part is making it perform efficiently! According to Jonathan Feinberg, Wordle uses a combination of hierarchical bounding boxes and quadtrees to achieve reasonable speeds.
+
+Glyphs in JavaScript
+
+There isn’t a way to retrieve precise glyph shapes via the DOM, except perhaps for SVG fonts. Instead, we draw each word to a hidden canvas element, and retrieve the pixel data.
+
+Retrieving the pixel data separately for each word is expensive, so we draw as many words as possible and then retrieve their pixels in a batch operation.
+
+Sprites and Masks
+
+My initial implementation performed collision detection using sprite masks. Once a word is placed, it doesn't move, so we can copy it to the appropriate position in a larger sprite representing the whole placement area.
+
+The advantage of this is that collision detection only involves comparing a candidate sprite with the relevant area of this larger sprite, rather than comparing with each previous word separately.
+
+Somewhat surprisingly, a simple low-level hack made a tremendous difference: when constructing the sprite I compressed blocks of 32 1-bit pixels into 32-bit integers, thus reducing the number of checks (and memory) by 32 times.
+
+In fact, this turned out to beat my hierarchical bounding box with quadtree implementation on everything I tried it on (even very large areas and font sizes). I think this is primarily because the sprite version only needs to perform a single collision test per candidate area, whereas the bounding box version has to compare with every other previously placed word that overlaps slightly with the candidate area.
+
+Another possibility would be to merge a word’s tree with a single large tree once it is placed. I think this operation would be fairly expensive though compared with the analagous sprite mask operation, which is essentially ORing a whole block.
+
+            </textarea>
+            <button id="gen" type="submit">Go!</button> <button id="control">컨트롤 판넬 토글</button>
+        </p>
+
+        <hr>
+
+        <div id="ctlView" style="display:none">
+            <div style="float: right; text-align: right">
+                <p><label for="max">Number of words:</label> <input type="number" value="250" min="1" id="max"></p>
+                <p><label for="per-line"><input type="checkbox" id="per-line"> One word per line</label></p>
+                <p><label>Download:</label>
+                    <button id="download-svg">SVG</button>
+                </p>
+            </div>
+
+            <div style="float: left">
+                <p><label>Spiral:</label>
+                    <label for="archimedean"><input type="radio" name="spiral" id="archimedean" value="archimedean" checked="checked"> Archimedean</label>
+                    <label for="rectangular"><input type="radio" name="spiral" id="rectangular" value="rectangular"> Rectangular</label>
+                </p>
+                <p><label for="scale">Scale:</label>
+                    <label for="scale-log"><input type="radio" name="scale" id="scale-log" value="log" checked="checked"> log n</label>
+                    <label for="scale-sqrt"><input type="radio" name="scale" id="scale-sqrt" value="sqrt"> √n</label>
+                    <label for="scale-linear"><input type="radio" name="scale" id="scale-linear" value="linear"> n</label>
+                </p>
+                <p><label for="font">Font:</label> <input type="text" id="font" value="Nanum">
+                </p>
+            </div>
+
+            <div id="angles">
+                <p><input type="number" id="angle-count" value="5" min="1"> <label for="angle-count">orientations</label>
+                    <label for="angle-from">from</label> <input type="number" id="angle-from" value="-60" min="-90" max="90"> °
+                    <label for="angle-to">to</label> <input type="number" id="angle-to" value="60" min="-90" max="90"> °
+                </p><svg width="151" height="70.5"><g transform="translate(75.5,60.5)"><path d="M -40.5 0 A 40.5 40.5 0 0 1 40.5 0" style="fill: none;">
+                </path><line x1="-47.5" x2="47.5"></line><line y2="-47.5"></line>
+                <text dy=".3em" text-anchor="end" transform="rotate(0)translate(-50.5)rotate(0)translate(2)">-90°</text>
+                <text text-anchor="middle" transform="rotate(90)translate(-50.5)rotate(-90)translate(2)">0°</text>
+                <text dy=".3em" text-anchor="start" transform="rotate(180)translate(-50.5)rotate(-180)translate(2)">90°</text>
+                <path class="angle" d="M-35.07402885326976,-20.250000000000014A40.5,40.5 0 0,1 35.074028853269766,-20.25L0,0Z" style="fill: rgb(255, 204, 0);"></path>
+                <line class="angle" transform="rotate(30)" x2="-45.5"></line><line class="angle" transform="rotate(60)" x2="-40.5"></line>
+                <line class="angle" transform="rotate(90)" x2="-40.5"></line><line class="angle" transform="rotate(120)" x2="-40.5"></line>
+                <line class="angle" transform="rotate(150)" x2="-45.5"></line><path class="drag" d="M-9.5,0L-3,3.5L-3,-3.5Z" transform="rotate(30)translate(-40.5)"></path>
+                <path class="drag" d="M-9.5,0L-3,3.5L-3,-3.5Z" transform="rotate(150)translate(-40.5)"></path></g></svg>
+            </div>
+
+            <hr style="clear: both">
+        </div>
+    </form>
+    <script src="https://www.jasondavies.com/d3.min.js"></script>
+    <script src="https://www.jasondavies.com/wordcloud/cloud.min.js"></script>
+
+<!-- END PAGE CONTENT -->
+    </div>
+    
+</body>
+    
+<script>
+    //컨트롤 판넬
+    document.getElementById("control").addEventListener("click", function() {
+            var styleText = document.getElementById("ctlView").style["display"];
+            if (styleText == "none")
+                document.getElementById("ctlView").style["display"] = "block";
+            else
+                document.getElementById("ctlView").style["display"] = "none";
+
+        })
+    
+    var init = function() {
+        w = parseInt(0.7 * window.innerWidth);
+        h = parseInt(0.5 * window.innerHeight);
+        document.getElementById("vis").style.width = w;
+        document.getElementById("vis").style.height = h;
+        document.getElementById("vis").style.align = "center";
+        document.getElementById("vis").firstChild.width.baseVal.value = w;
+        document.getElementById("vis").firstChild.height.baseVal.value = h;
+      layout = d3.layout.cloud().timeInterval(10).size([w, h]).fontSize(function(t) { return fontSize(+t.value) }).text(function(t) { return t.key }).on("word", progress).on("end", draw)
+
+      var mouseEvent = document.createEvent('MouseEvents');
+        mouseEvent.initEvent("click", true, false);
+        document.getElementById("gen").dispatchEvent(mouseEvent);
+
+    }
+        //윈도우 사이즈 변경시
+//    window.onresize = init;
+//    window.onload = init;
+</script>    
+    
+</html>

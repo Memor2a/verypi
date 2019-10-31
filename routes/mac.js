@@ -48,8 +48,6 @@ var add_ban_mac = function(req, res) {
                 rule_name: paramRuleName,
                 mac_address: paramMac
 			});
-
-            console.log(add_ban_mac);
         
 			add_ban_mac.savePost(function(err, results) {
 				if (err) {
@@ -64,10 +62,7 @@ var add_ban_mac = function(req, res) {
                         return;
                     }
                 }
-				
-			    console.log("글 데이터 추가함.");
-			    console.log('글 작성', '포스팅 글을 생성했습니다. : ');
-			    
+			    console.log("데이터 추가함.");			    
 			    return res.redirect('/process/list_ban_mac'); 
 			});
 			
@@ -91,16 +86,13 @@ var list_ban_mac = function(req, res) {
 	console.log('BANNED MAC ADDRESS 로딩 진행중');
     // 데이터베이스 객체가 초기화된 경우
 	if (database.db) {
-	console.log('BANNED MAC ADDRESS 로딩 진행중1');
-		// 1. 글 리스트
+		// 1. 리스트
 		var options = {
 			page: paramPage,
 			perPage: paramPerPage
 		}
-	console.log('BANNED MAC ADDRESS 로딩 진행중2');
         
 		database.MacModel.list(options, function(err, results) {
-	console.log('BANNED MAC ADDRESS 로딩 진행중3');
 			if (err) {
                 console.error('BANNED MAC ADDRESS 중 에러 발생 : ' + err.stack);
                 res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
@@ -112,35 +104,46 @@ var list_ban_mac = function(req, res) {
             }
 			
 			if (results) {
-//				console.dir(results);
- 
 				// 전체 문서 객체 수 확인
 				database.MacModel.count().exec(function(err, count) {
 
 					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
 					
+                    // 맥 어드레스
+                    var exec = require('child_process').exec,
+                        child;
+
+                    child = exec("echo echo return value", function (error, stdout, stderr) {
+                        console.log('stderr: ' + stderr); 
+                        if (error !== null){
+                            console.log('exec error: ' + error);
+                        }         
+                        
 					// 뷰 템플레이트를 이용하여 렌더링한 후 전송
 
-					var context = {
-                        result: results
-					};
-                    
-                    console.log(results);
-                    
-					req.app.render('sc_mac', context, function(err, html) {
-                        if (err) {
-                            console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+                        var context = {
+                            result: results,
+                            connected: stdout
+                        };
 
-                            res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-                            res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
-                            res.write('<p>' + err.stack + '</p>');
-                            res.end();
+                        console.log(results);
 
-                            return;
-                        }
-                        
-						res.end(html);
-					});
+                        req.app.render('sc_mac', context, function(err, html) {
+                            if (err) {
+                                console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+
+                                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+                                res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
+                                res.write('<p>' + err.stack + '</p>');
+                                res.end();
+
+                                return;
+                            }
+
+                            res.end(html);
+                        });
+ 
+                    });                    
 					
 				});
 				

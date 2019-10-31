@@ -15,7 +15,6 @@ var expressErrorHandler = require('express-error-handler');
 
 // Session 미들웨어 불러오기
 var expressSession = require('express-session');
-  
 
 //===== Passport 사용 =====//
 var passport = require('passport');
@@ -32,8 +31,6 @@ var database = require('./database/database');
 var route_loader = require('./routes/route_loader');
 
  
-
-
 // 익스프레스 객체 생성
 var app = express();
 
@@ -69,7 +66,6 @@ app.use(expressSession({
 }));
 
 
-
 //===== Passport 사용 설정 =====//
 // Passport의 세션을 사용할 때는 그 전에 Express의 세션을 사용하는 코드가 있어야 함
 app.use(passport.initialize());
@@ -87,6 +83,9 @@ configPassport(app, passport);
 // 패스포트 라우팅 설정
 var userPassport = require('./routes/user_passport');
 userPassport(router, passport);
+
+var exec = require('child_process').exec;
+        
 
 //===== 404 에러 페이지 처리 =====//
 var errorHandler = expressErrorHandler({
@@ -128,3 +127,6 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 	// 데이터베이스 초기화
 	database.init(app, config);
 });
+
+//테스트
+

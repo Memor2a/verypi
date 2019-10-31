@@ -117,28 +117,40 @@ var list_reg_device = function(req, res) {
 				database.DeviceModel.count().exec(function(err, count) {
 
 					res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-					
+
+                    // 사용자 관리
+                    var exec = require('child_process').exec,
+                        child;
+
+                    child = exec("echo echo return value", function (error, stdout, stderr) {
+            //            console.log('stdout: ' + stdout);
+                        console.log('stderr: ' + stderr); 
+                        if (error !== null){
+                            console.log('exec error: ' + error);
+                        }         
+                        
 					// 뷰 템플레이트를 이용하여 렌더링한 후 전송
 
-					var context = {
-                        result: results
-					};
-                    
-					req.app.render('use_usermanage', context, function(err, html) {
-                        if (err) {
-                            console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
+                        var context = {
+                            result: results,
+                            connected: stdout
+                        };
 
-                            res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
-                            res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
-                            res.write('<p>' + err.stack + '</p>');
-                            res.end();
+                        req.app.render('use_usermanage', context, function(err, html) {
+                            if (err) {
+                                console.error('응답 웹문서 생성 중 에러 발생 : ' + err.stack);
 
-                            return;
-                        }
-                        
-						res.end(html);
-					});
-					
+                                res.writeHead('200', {'Content-Type':'text/html;charset=utf8'});
+                                res.write('<h2>응답 웹문서 생성 중 에러 발생</h2>');
+                                res.write('<p>' + err.stack + '</p>');
+                                res.end();
+
+                                return;
+                            }
+
+                            res.end(html);
+                        });
+                    });
 				});
 				
 			} else {

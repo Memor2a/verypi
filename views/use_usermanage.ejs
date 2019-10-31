@@ -2,12 +2,7 @@
 <html>
 <title>Router 설정 페이지</title>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css">
-<link rel="stylesheet" href="/public/css/main_css.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<% include ./meta.ejs %>
 <style>
 .w3-sidebar a {font-family: "Roboto", "Nanum gothic", sans-serif}
 body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", "Nanum gothic", sans-serif;}
@@ -15,90 +10,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", "Nanum gothic", sans
 
 <body class="w3-content w3-grey" style="max-width:1200px">
 
-	<!-- 메뉴 -->
-	<nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
-		<div class="w3-container w3-display-container w3-padding-16">
-			<i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-			<h3 class="w3-narrower w3-center"><b>VeryPI Router</b></h3>
-            <br>
-            <div class="w3-center w3-border-top w3-border-bottom">
-                <% if (1) { %>
-                    <p class="w3-text-grey"><span class="fa fa-user"></span> 관리자님 환영합니다</p>
-                    <a href="/logout" class="w3-bar-item w3-center w3-button w3-text-black"> 로그아웃</a>
-                <% } else { %>
-                    <p class="w3-text-grey">로그인 하시기 바랍니다</p>
-                    <a href="/login" class="w3-bar-item w3-center w3-button w3-text-black"> 로그인</a>
-                <% } %>
-            </div>    
-        </div>
-	  
-		<div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-			<a href="/" class="w3-bar-item w3-button w3-text-black">시스템 정보</a>
-
-            <% if (1) { %>
-                <a onclick="myAccFunc(1)" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
-                    사용 설정<i class="fa fa-caret-down"></i>
-                </a>
-                <div id="demoAcc1" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-                    <a href="/process/listpost?page=0&perPage=2" class="w3-bar-item w3-button">공지사항 설정</a>
-                    <a href="/pw_change" class="w3-bar-item w3-button">비밀번호 변경</a>
-                    <a href="/user_manage" class="w3-bar-item w3-button">구성원 관리</a>
-                    <a href="/limit_user" class="w3-bar-item w3-button">사용인원 제한</a>
-                </div>
-
-                <a onclick="myAccFunc(2)" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
-                    네트워크 설정 <i class="fa fa-caret-down"></i>
-                </a>
-                <div id="demoAcc2" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-                    <a href="/port" class="w3-bar-item w3-button w3-light-grey">포트 설정</a>
-                    <a href="/port_foward" class="w3-bar-item w3-button">포트 포워딩 설정</a>
-                    <a href="/inner_network" class="w3-bar-item w3-button">내부 네트워크 관리</a>
-                    <a href="/change_router_ip" class="w3-bar-item w3-button">공유기 IP 변경</a>
-                </div>
-
-                <a onclick="myAccFunc(3)" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
-                    보안 설정 <i class="fa fa-caret-down"></i>
-                </a>
-                <div id="demoAcc3" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-                    <a href="/mac_address" class="w3-bar-item w3-button">MAC Address 관리</a>
-                    <a href="/syn_flood" class="w3-bar-item w3-button">SYN Flood 차단 설정</a>
-                </div>
-
-                <a onclick="myAccFunc(4)" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
-                    디지털 액자 <i class="fa fa-caret-down"></i>
-                </a>
-                <div id="demoAcc4" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-                    <a href="/slide_setting" class="w3-bar-item w3-button">슬라이드 설정</a>
-                    <a href="/save_energy" class="w3-bar-item w3-button">절전 설정</a>
-                </div>
-
-                <a onclick="myAccFunc(5)" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
-                    Printer Sharing <i class="fa fa-caret-down"></i>
-                </a>
-                <div id="demoAcc5" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-                    <a href="/pt_driver" class="w3-bar-item w3-button">드라이버 설정</a>
-                    <a href="/pt_printer" class="w3-bar-item w3-button">프린터 설정</a>
-                </div>
-
-                <a onclick="myAccFunc(6)" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
-                    NAS <i class="fa fa-caret-down"></i>
-                </a>
-                <div id="demoAcc6" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-                    <a href="/nas_register" class="w3-bar-item w3-button">NAS 등록</a>
-                </div>
-			<% } %>
-            
-		</div>
-	</nav>
-    
-	<!-- 모바일 버전 상단 바 -->
-	<header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-		<a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-left" onclick="w3_open()"><i class="fa fa-bars"></i></a>
-		<div class="w3-bar-item w3-padding-24">VeryPI Router</div>
-	</header>
-
-	<!-- 모바일 메뉴 닫기 -->
-	<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+    <% include ./menu.ejs %>
 
 	<!-- 내용 시작 -->
 	<div class="w3-main w3-white" style="margin-left:250px">
@@ -145,14 +57,23 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", "Nanum gothic", sans
                         </table>
                     </div>
                     <br>
-                    <div class="w3-half w3-container">
-                        <button type="submit" name="add" value="1" class="w3-button w3-block w3-padding-large w3-black w3-margin-top">구성원 등록하기</button>
+                    <p>현재 접속된 사용자</p>
+                    <div class="w3-border-top w3-border-bottom w3-text-black">
+                        <%=connected%>
                     </div>
-                    <div class="w3-half w3-container">
-                        <button type="submit" name="delete" value="1" class="w3-button w3-block w3-padding-large w3-black w3-margin-top">구성원 삭제하기</button>
-                    </div> 
+                    <br>
+                    
+                    <div>
+                        <div class="w3-half w3-container">
+                            <button type="submit" name="add" value="1" class="w3-button w3-block w3-padding-large w3-black w3-margin-top">구성원 등록하기</button>
+                        </div>
+                        <div class="w3-half w3-container">
+                            <button type="submit" name="delete" value="1" class="w3-button w3-block w3-padding-large w3-black w3-margin-top">구성원 삭제하기</button>
+                        </div> 
+                    </div>
                 </form>    
             </div>
+            <br>
         
         <% } else { %>
             <div class="w3-container w3-center w3-padding-32">

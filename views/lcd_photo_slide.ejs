@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<title>Family HUB Digital Frame</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="/public/css/main_css.css">
+<link rel="stylesheet" href="/public/css/montserrat.css">
+<link rel="stylesheet" href="/public/css/font-awesome.min.css">
+<style>
+    body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+    .w3-row-padding img {margin-bottom: 12px}
+    /* Set the width of the sidebar to 120px */
+    .w3-sidebar {width: 150px;background: #222;}
+    /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+    #main {margin-left: 150px}
+    /* Remove margins from "page content" on small screens */
+    /* @media only screen and (max-width: 600px) {#main {margin-left: 0}} */
+    #slideShowImages { /* The following CSS rules are optional. */
+      border: 0px white solid;
+      background-color: lightgray;
+    }   
+    #slideShowImages img { /* The following CSS rules are optional. */
+	  width: 800px;
+	  height: 500px;
+    }       
+</style>
+<body class="w3-black">
+
+<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<nav class="w3-dark w3-sidebar w3-bar-block w3-small w3-center">
+  <!--<img src="/w3images/avatar_smoke.jpg" style="width:100%">-->
+    <a href="/df_main" class="w3-bar-item w3-button w3-padding-large w3-black">
+        <p>MAIN Page</p>
+    </a>
+    <a href="/df_router_info" class="w3-dark-grey w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <p>SYSTEM INFO</p>
+    </a>
+    <a href="/df_photo_slide" class="w3-dark-grey w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <p>PHOTO SLIDE</p>
+    </a>
+    <a href="/df_tag" class="w3-dark-grey w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <p>TAG VIEW</p>
+    </a>
+    <a href="/df_day" class="w3-dark-grey w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <p>FIND BY DATE</p>
+    </a>
+</nav>
+
+<!-- Page Content -->
+<div class="w3-padding-large" id="main">
+  <!-- Header/Home -->
+    <p>Photo</p>
+
+    <div class="w3-center">
+      <div id="slideShowImages">
+        <img src="/public/images/1.jpg" alt="Slide 1" />
+        <img src="/public/images/2.jpg" alt="Slide 2" />
+        <img src="/public/images/3.jpg" alt="Slide 3" />  
+        <img src="/public/images/4.jpg" alt="Slide 4" />
+        <img src="/public/images/5.jpg" alt="Slide 5" />
+        <img src="/public/images/6.jpg" alt="Slide 6" />  	
+      </div>          
+    </div>
+<!--  <button id="slideShowButton"></button> <!-- Optional button element. -->
+    <a href="/df_photo_full" class="w3-text-deco">전체화면으로 보기</a>
+  <script src="/public/js/slideShow.js"></script>
+
+<!-- END PAGE CONTENT -->
+</div>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <title>Slide Show</title>
+  <style>
+  </style>
+</head>
+
+<body>
+</body>
+
+</html>

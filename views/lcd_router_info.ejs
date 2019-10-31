@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<title>Family HUB Digital Frame</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="/public/css/main_css.css">
+<link rel="stylesheet" href="/public/css/montserrat.css">
+<link rel="stylesheet" href="/public/css/font-awesome.min.css">
+<style>
+body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
+.w3-row-padding img {margin-bottom: 12px}
+/* Set the width of the sidebar to 120px */
+.w3-sidebar {width: 150px;background: #222;}
+/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+#main {margin-left: 150px}
+/* Remove margins from "page content" on small screens */
+/* @media only screen and (max-width: 600px) {#main {margin-left: 0}} */
+</style>
+<body class="w3-black">
+
+<!-- Icon Bar (Sidebar - hidden on small screens) -->
+<nav class="w3-dark w3-sidebar w3-bar-block w3-small w3-center">
+  <!--<img src="/w3images/avatar_smoke.jpg" style="width:100%">-->
+    <a href="/df_main" class="w3-bar-item w3-button w3-padding-large w3-black">
+        <p>MAIN Page</p>
+    </a>
+    <a href="/df_router_info" class="w3-dark-grey w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <p>SYSTEM INFO</p>
+    </a>
+    <a href="/df_photo_slide" class="w3-dark-grey w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <p>PHOTO SLIDE</p>
+    </a>
+    <a href="/df_tag" class="w3-dark-grey w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <p>TAG VIEW</p>
+    </a>
+    <a href="/df_day" class="w3-dark-grey w3-bar-item w3-button w3-padding-large w3-hover-black">
+        <p>FIND BY DATE</p>
+    </a>
+</nav>
+
+<!-- Page Content -->
+<div class="w3-padding-large" id="main">
+  <!-- Header/Home -->
+        <p>System Information</p>
+    
+		<div class="w3-container w3-text-white" id="summary_device">
+			<p>현재 연결된 기기</p>
+			<div class="w3-bar w3-border-top w3-border-bottom">
+				<table class="w3-table">
+					<tr class="w3-border-bottom">
+						<td>이름</td><td>기기명</td><td>IP</td>
+					</tr>
+					<tr>
+						<td>??</td><td>갤럭시노트5</td><td>123.456.12.34</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	  
+		<div class="w3-container" id="summary-security">
+			<p>보안 설정 요약</p>
+		</div>
+
+		<div class="w3-container" id="summary_device">
+			<div class="w3-bar w3-border-top w3-border-bottom">
+				<table class="w3-table">
+					<tr class="w3-border-bottom">
+						<td width = "50%">차단된 MAC ADDRESS</td><td>N개</td>
+					</tr>
+					<tr>
+						<td>SYN Flood 차단</td><td>사용중</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="w3-container w3-text-grey" id="summary-NAS">
+			<p>NAS 정보</p>
+		</div>
+
+		<div class="w3-container w3-text-grey" id="summary_device">
+			<div class="w3-bar w3-text-black w3-border-top w3-border-bottom">
+				<table class="w3-table">
+					<tr class="w3-border-bottom">
+						<td width="50%">USB 종류</td><td>USB</td>
+					</tr>
+					<tr>
+						<td>현재 상태</td><td>50% 사용중</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+    
+<!-- END PAGE CONTENT -->
+</div>
+
+</body>
+</html>

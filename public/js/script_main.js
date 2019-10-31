@@ -1,4 +1,4 @@
-// 메뉴 클릭시 메뉴 오픈
+﻿// 메뉴 클릭시 메뉴 오픈
 function myAccFunc(num) {
     var x = document.getElementById("demoAcc"+num);
     if (x.className.indexOf("w3-show") == -1) {
@@ -36,3 +36,4 @@ function load_nofication(){
 
 //테스트
 document.getElementById("popup-message").style.display='block';
+

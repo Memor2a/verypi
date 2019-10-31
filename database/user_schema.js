@@ -118,4 +118,6 @@ Schema.createSchema = function(mongoose) {
 // module.exports에 UserSchema 객체 직접 할당
 module.exports = Schema;
 
+//http://147.46.109.80:9090/town/projects3.jsp?sort=1&file=C%3A%5CProgram+Files%5CApache+Software+Foundation%5CTomcat+6.0%5C.%5Cwebapps%5Cprojects3%5CMission%5Cmission11%5Cdatabase%5Cuser_schema.js
+
 
